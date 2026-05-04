@@ -93,6 +93,7 @@ dots commit --allow-empty -m "Init zsh"
 ```
 3. **Vincular carpeta:**
 ```bash
+# No debe existir o debe estar completamente vacia la nueva carpeta a vincular
 dots worktree add ~/.config/zsh zsh-config
 ```
 4. **Agregar archivos:**
@@ -120,8 +121,9 @@ git push -u origin zsh-config
 2. **Configurar el alias `dots`** en la terminal.
 3. **Descargar las ramas necesarias:**
    ```bash
-   # Git creará la carpeta automáticamente y pondrá los archivos
+   # Git creará la carpeta automáticamente y pondrá los archivos (no debe existir la carpeta o debe estar vacia)
    dots worktree add ~/.config/nvim nvim-config
+   dots worktree add ~/AppData/Local/nvim nvim-config
    ```
 
 ---
