@@ -91,14 +91,20 @@ dots checkout --orphan zsh-config
 dots rm -rf .
 dots commit --allow-empty -m "Init zsh"
 ```
-3. **Vincular carpeta:** `dots worktree add ~/.config/zsh zsh-config`
+3. **Vincular carpeta:**
 ```bash
+dots worktree add ~/.config/zsh zsh-config
 ```
-4. **Agregar archivos:** `cd ~/.config/zsh && git add . && git commit -m "Add zsh files"`
+4. **Agregar archivos:**
 ```bash
+cd ~/.config/zsh
+# (Crear o editar archivos)
+git add .
+git commit -m "Add zsh files"
 ```
-5. **Subir:** `git push -u origin zsh-config`
+5. **Subir:**
 ```bash
+git push -u origin zsh-config
 ```
 
 ---
