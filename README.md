@@ -63,7 +63,7 @@ cd ~/dotfiles-main
 # (Crear y editar el archivo README.md)
 git add README.md
 git commit -m "Explicación de worktree main añadida"
-git push origin main
+git push -u origin main
 ```
 
 ---
