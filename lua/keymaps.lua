@@ -29,3 +29,7 @@ keymap('n', '<TAB>', '<CMD>bnext<CR>', { desc = 'Ir al siguiente buffer/ventana'
 keymap('n', '<S-TAB>', '<CMD>bprevious<CR>', { desc = 'Ir al buffer/ventana anterior' })
 
 keymap('n', '<leader>nh', '<CMD>nohlsearch<CR>', { desc = 'Stop the highlighting' })
+
+keymap('n', '<leader>P', function()
+    vim.pack.update()
+end, { desc = 'Update packages' })
