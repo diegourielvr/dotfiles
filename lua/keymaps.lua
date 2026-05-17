@@ -30,6 +30,9 @@ keymap('n', '<S-TAB>', '<CMD>bprevious<CR>', { desc = 'Ir al buffer/ventana ante
 
 keymap('n', '<leader>nh', '<CMD>nohlsearch<CR>', { desc = 'Stop the highlighting' })
 
+keymap('n', '<leader>L', function()
+    vim.pack.update(nil, { offline = true })
+end, { desc = 'Show packages' })
 keymap('n', '<leader>P', function()
     vim.pack.update()
 end, { desc = 'Update packages' })
