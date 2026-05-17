@@ -1,7 +1,7 @@
-local add = require('vim-pack').add
+local add_on_event = require('vim-pack').add_on_event
 local git_icons = require('icons').git
 
-add {
+add_on_event({ 'BufReadPre', 'BufNewFile'}, {
     -- Dependencies
     { src = 'nvim-tree/nvim-web-devicons' },
 
@@ -179,4 +179,4 @@ add {
             require('lualine').setup(opts)
         end
     }
-}
+})
