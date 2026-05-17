@@ -10,6 +10,9 @@ add({
                 char = '│',
                 tab_char = '│',
             },
+            scope = {
+                enabled = false,
+            },
         },
     }
 })
