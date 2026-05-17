@@ -1,7 +1,10 @@
 local add = require('vim-pack').add
 
 add {
+    -- Dependencies
+    { src = 'nvim-tree/nvim-web-devicons' },
     { src = 'nvim-lua/plenary.nvim' },
+
     {
         src = 'nvim-telescope/telescope-file-browser.nvim',
         setup = false,
