@@ -6,7 +6,7 @@ add_on_event('BufEnter', {
         src = 'echasnovski/mini.indentscope',
         version = 'stable',
         opts = {
-            symbol = vbar_icon, -- "▏"
+            symbol = '│', -- "▏"
             options = {
                 try_as_border = true
             },
