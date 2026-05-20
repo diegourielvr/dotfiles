@@ -25,6 +25,13 @@ add({
                     },
                     ghost_text = { enabled = true },
                 },
+                keymap = {
+                    ['<CR>'] = { 'accept', 'fallback' },
+                    ['<C-\\>'] = { 'hide', 'fallback' },
+                    ['<C-n>'] = { 'select_next', 'show' },
+                    ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+                    ['<C-p>'] = { 'select_prev' },
+                },
             },
             snippets = { preset = 'luasnip' },
             completion = {

@@ -38,6 +38,8 @@ add {
             end
 
             require('nvim-treesitter').install(parsers):wait(300000)
+
+            vim.keymap.set('n', '<leader>ts', ' <CMD>InspectTree<CR>', { desc = 'Inspect Tree'})
         end
     }
 }
@@ -49,6 +51,5 @@ on_plugin_update('nvim-treesitter', function()
     require('nvim-treesitter').update():wait(300000)
 end)
 
-vim.keymap.set('n', '<leader>ts', ' <CMD>InspectTree<CR>', { desc = 'Inspect Tree'})
 
 
