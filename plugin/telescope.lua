@@ -31,12 +31,12 @@ add {
         },
         on_setup = function()
             require('telescope').load_extension('file_browser')
+
+            vim.keymap.set('n', '<leader>e', ':Telescope file_browser path=%:p:h select_buffer=true<CR><C-h>', { desc = 'Open file browser' })
+            vim.keymap.set('n', '<leader>of', '<CMD>Telescope oldfiles<CR>', { desc = 'Old files' })
+            vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { desc = 'Find files' })
         end,
     }
 }
 
-vim.keymap.set('n', '<leader>e', ':Telescope file_browser path=%:p:h select_buffer=true<CR><C-h>', { desc = 'Open file browser' })
-vim.keymap.set('n', '<leader>of', '<CMD>Telescope oldfiles<CR>', { desc = 'Old files' })
-
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { desc = 'Find files' })
 
