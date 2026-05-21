@@ -40,6 +40,27 @@ add {
             require('nvim-treesitter').install(parsers):wait(300000)
 
             vim.keymap.set('n', '<leader>ts', ' <CMD>InspectTree<CR>', { desc = 'Inspect Tree'})
+
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = { '*' },
+                callback = function(args)
+                    local ft = vim.bo[args.buf].filetype
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    if not vim.treesitter.language.add(lang) then
+                        local available = vim.g.ts_available or require('nvim-treesitter').get_available()
+                        if not vim.g.ts_available then
+                            vim.g.ts_available = available
+                        end
+                        if vim.tbl_contains(available, lang) then
+                            require('nvim-treesitter').install(lang)
+                        end
+                    end
+                    if vim.treesitter.language.add(lang) then
+                        vim.treesitter.start(args.buf, lang)
+                        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
+            })
         end
     }
 }
@@ -52,4 +73,16 @@ on_plugin_update('nvim-treesitter', function()
 end)
 
 
-
+-- Activar el resaltado nativo de Treesitter según el tipo de archivo
+-- vim.api.nvim_create_autocmd('FileType', {
+--     callback = function(args)
+--         -- Si el parser del lenguaje está instalado, activa el resaltado nativo
+--         local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype) or vim.bo[args.buf].filetype
+--         local has_parser = pcall(vim.treesitter.query.get, lang, 'highlights')
+--
+--         if has_parser then
+--             vim.treesitter.start(args.buf, lang)
+--         end
+--     end,
+-- })
+--
