@@ -2,6 +2,7 @@ local keymap = vim.keymap.set
 
 keymap('n', '<leader>w', '<CMD>w<CR>', { desc = 'Guardar cambios' })
 keymap('n', '<leader>q', '<CMD>q<CR>', { desc = 'Cerrar ventana actual' })
+keymap('n', '<leader>bc', '<CMD>BufferClose<CR>', { desc = 'Cerrar tab de bufferr' })
 keymap('n', 'U', '<C-r>', { desc = 'Redo' })
 
 keymap('n', 'j', 'gj', { desc = 'Moverse una linea visual hacia abajo' })
