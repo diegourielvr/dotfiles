@@ -84,6 +84,7 @@ add({
             -- appearance = {
             --     kind_icons = require('icons').symbol_kinds,
             -- },
+            fuzzy = { implementation = "lua" },
         },
     }
 })
