@@ -1,6 +1,5 @@
 require 'options'
 require 'keymaps'
+require 'lsp'
+require 'colorschemes'
 
--- Colorscheme
-local colorscheme = 'catppuccin'
-require('colorschemes.' .. colorscheme)
