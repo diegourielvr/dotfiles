@@ -20,6 +20,7 @@ add {
                 multi_icon = " ",
                 initial_mode = "normal", -- 'insert' | 'normal'
                 border = true,
+                -- preview = false,
             },
             extensions = {
                 file_browser = {
