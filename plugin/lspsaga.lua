@@ -20,6 +20,9 @@ add({
                     exec = '<CR>',
                 },
             },
+            lightbulb = {
+                enable = false,
+            },
             finder = {
                 keys = {
                     toggle_or_open = '<CR>',
