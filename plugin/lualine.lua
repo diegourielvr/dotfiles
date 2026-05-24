@@ -171,8 +171,8 @@ add_on_event({ 'BufReadPre', 'BufNewFile'}, {
                 lualine_a = { modes, },
                 lualine_b = { branch, diff, },
                 lualine_c = { },
-                lualine_x = { search, location, progress, },
-                lualine_y = { diagnostics, lsp, },
+                lualine_x = { diagnostics, lsp, },
+                lualine_y = { search, location, },
                 lualine_z = { indent, encoding, },
             }
 
