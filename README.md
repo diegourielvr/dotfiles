@@ -7,7 +7,6 @@ Este repositorio contiene las configuraciones de mi entorno (Neovim, scripts, et
 ## Conceptos Clave
 
 - **Bare Repository:** Una base de datos de Git ubicada en `~/.dotfiles` que no tiene una "carpeta de trabajo" propia.
-- **Alias `dots`:** Comando personalizado para interactuar con el repo bare desde cualquier lugar.
 - **Worktrees:** "Túneles" que conectan ramas específicas del repo con carpetas reales en el disco duro.
 
 ---
@@ -17,47 +16,24 @@ Este repositorio contiene las configuraciones de mi entorno (Neovim, scripts, et
 ### 1. Crear el motor (Bare Repo)
 
 ```bash
-git init --bare $HOME/.dotfiles
+git init --bare ~/.dotfiles
+cd ~/.dotfiles
 ```
 
-### 2. Configurar el Alias (en .zshrc / .bashrc / PowerShell)
-
-Para gestionar el repo sin movernos de carpeta:
-
-En .zshrc, .bashrc:
-
-```bash
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-```
-
-En Powershell:
-
-```bash
-function dots {
-    & git --git-dir="$HOME\.dotfiles\" --work-tree="$HOME" @args
-}
-```
-
-Como el "directorio de trabajo" es todo `$HOME`, le decimos a Git que no muestre todos los archivos de la PC como "pendientes":
-
-```bash
-dots config --local status.showUntrackedFiles no
-```
-
-Y conectamos el remoto usando ese alias:
+Y conectamos el repositorio remoto
 
 ```bash
 # Usando ssh
-dots remote add origin git@github.com:diegourielvro/dotfiles.git
+git remote add origin git@github.com:diegourielvr/dotfiles.git
 ```
 
-### 3. Separación de la documentación (Worktree Main)
+### 2. Worktree Main
 
-Para evitar que el archivo `README.md` y otros archivos globales se mezclen con las carpetas personales del `$HOME`, creamos un espacio dedicado para la rama principal:
+Creamos un espacio dedicado para la rama principal:
 
 ```bash
 # Esto saca la rama 'main' de la base de datos y la pone en una carpeta visible
-dots worktree add ~/dotfiles-main main
+git worktree add ~/dotfiles-main main
 
 cd ~/dotfiles-main
 # (Crear y editar el archivo README.md)
@@ -72,38 +48,48 @@ git push -u origin main
 
 Cada configuración importante vive en su propia rama y se "materializa" en una carpeta específica:
 
-
-
 | Rama | Carpeta (Windows) | Carpeta (Linux) | Descripción |
 | :--- | :--- | :--- | :--- |
 | `main` | `~/dotfiles-main` | `~/dotfiles-main` | Documentación y README |
 | `nvim-config` | `~/AppData/Local/nvim` | `~/.config/nvim` | Configuración de Neovim |
 
-### Cómo agregar una nueva configuración (Ejemplo: Zsh)
+### Agregar una nueva configuración (Ejemplo: Zsh)
 
 1. **Crear rama:**
 ```bash
 # crear la rama "huérfana" (sin historial previo)
-dots checkout --orphan zsh-config
+cd ~/.dotfiles
+
+git switch --orphan zsh-config
 ```
-2. **Limpiar rama:** 
+
+2. **Commit vacio:** 
+
+Necesitamos al menos un commit para crear un worktree de la nueva rama
+
 ```bash
-dots rm -rf .
-dots commit --allow-empty -m "Init zsh"
+git commit --allow-empty -m "Init zsh"
 ```
+
 3. **Vincular carpeta:**
+
 ```bash
 # No debe existir o debe estar completamente vacia la nueva carpeta a vincular
-dots worktree add ~/.config/zsh zsh-config
+git worktree add ~/.config/zsh zsh-config
 ```
 4. **Agregar archivos:**
+
 ```bash
 cd ~/.config/zsh
 # (Crear o editar archivos)
 git add .
 git commit -m "Add zsh files"
 ```
+
 5. **Subir:**
+
+Usamos el siguiente comando para subir cambios por primera vez al repositorio remoto
+
 ```bash
 git push -u origin zsh-config
 ```
@@ -115,16 +101,43 @@ git push -u origin zsh-config
 ### En una máquina nueva:
 
 1. **Clonar el repo bare:**
+
    ```bash
-   git clone --bare git@github.com:diegourielvr/dotfiles.git $HOME/.dotfiles
+   git clone --bare git@github.com:diegourielvr/dotfiles.git ~/.dotfiles
+   cd ~/dotfiles
    ```
-2. **Configurar el alias `dots`** en la terminal.
+
 3. **Descargar las ramas necesarias:**
+
    ```bash
    # Git creará la carpeta automáticamente y pondrá los archivos (no debe existir la carpeta o debe estar vacia)
-   dots worktree add ~/.config/nvim nvim-config
-   dots worktree add ~/AppData/Local/nvim nvim-config
+   git worktree add ~/.config/nvim nvim-config
+   git worktree add ~/AppData/Local/nvim nvim-config
    ```
+
+### Listar worktrees
+
+```bash
+cd ~/.dotfiles
+git worktree list
+```
+
+### Eliminar un worktree
+
+```bash
+git worktree remove ~/.config/nvim
+
+# Si tienes cambios sin guardar (pero ya no te importan)
+git worktree remove ~/AppData/Local/nvim --force
+```
+
+#### ¿Qué pasa si ya borré la carpeta manualmente?
+
+Si eliminaste la carpeta del worktree directamente usando el explorador de archivos o el comando `rm -rf`, debes limpiar los residuos que quedaron en la base de datos de Git:
+
+```bash
+git worktree prune
+```
 
 ---
 
@@ -149,6 +162,7 @@ Si modificamos algo en otra PC:
 cd ~/AppData/Local/nvim
 git pull
 ```
+
 
 ---
 
