@@ -125,6 +125,7 @@ git worktree list
 ### Eliminar un worktree
 
 ```bash
+cd ~/.dotfiles
 git worktree remove ~/.config/nvim
 
 # Si tienes cambios sin guardar (pero ya no te importan)
@@ -136,6 +137,7 @@ git worktree remove ~/AppData/Local/nvim --force
 Si eliminaste la carpeta del worktree directamente usando el explorador de archivos o el comando `rm -rf`, debes limpiar los residuos que quedaron en la base de datos de Git:
 
 ```bash
+cd ~/.dotfiles
 git worktree prune
 ```
 
